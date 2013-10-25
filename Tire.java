@@ -45,10 +45,10 @@ public class Tire {
      * @return A double containing the diameter of the tire
      */
     private double tireDiameter() {
-        double sidewall = width * (ratio/100.0);
+        double sidewall = width * (ratio / 100.0);
         //convert sidewall thickness from mm to inches
         sidewall *= 0.03937;
-        return diameter + 2*sidewall;
+        return diameter + 2 * sidewall;
     }
 
     /**
@@ -56,8 +56,8 @@ public class Tire {
      *
      * @return A double containing the circumference of the tire
      */
-    public double circumference() {
-        return Math.PI*tireDiameter();
+    private double circumference() {
+        return Math.PI * tireDiameter();
     }
 
     /**
@@ -66,7 +66,7 @@ public class Tire {
      * @return A double containing the number of revolutions per mile
      */
     public double revsPerMile() {
-        return (5280*12) / circumference();
+        return (5280 * 12) / circumference();
     }
 
     /**

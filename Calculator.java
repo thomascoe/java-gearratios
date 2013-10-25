@@ -14,20 +14,20 @@ public class Calculator {
         //Prompt for input for tire size
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please enter your car tire size formatted like "
-                +"205/40R17");
+                + "205/40R17");
         String size = keyboard.nextLine();
         Tire tire1 = new Tire(size);
         //Create a new GearRatioCalc
         gearCalculator = new GearRatioCalc(ratios, dRatio, tire1);
         int next = 0;
-        while(next!=3) {
+        while (next != 3) {
             System.out.println("1. Calculate RPMs at a given speed");
             System.out.println("2. Calculate speeds at a given RPM");
             System.out.println("3. Exit");
             next = Integer.parseInt(keyboard.nextLine());
-            if (next==1) {
+            if (next == 1) {
                 promptRPM();
-            } else if (next==2) {
+            } else if (next == 2) {
                 promptMPH();
             }
         }
@@ -36,7 +36,7 @@ public class Calculator {
     public static void promptRPM() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please input the speed in MPH you wish to "
-                +"calculate for:");
+                + "calculate for:");
         int speed = Integer.parseInt(keyboard.nextLine());
         gearCalculator.MPHcalc(speed);
     }
@@ -44,7 +44,7 @@ public class Calculator {
     public static void promptMPH() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please input the RPM you wish to "
-                +"calculate for:");
+                + "calculate for:");
         int revs = Integer.parseInt(keyboard.nextLine());
         gearCalculator.RPMcalc(revs);
     }

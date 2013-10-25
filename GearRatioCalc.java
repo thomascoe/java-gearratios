@@ -25,7 +25,7 @@ public class GearRatioCalc {
         this.differentialRatio = differentialRatio;
         this.tireSize = tireSize;
         finalDriveRatio = new double[gearRatios.length];
-        for (int i=0; i<finalDriveRatio.length; i++) {
+        for (int i = 0; i < finalDriveRatio.length; i++) {
             finalDriveRatio[i] = gearRatios[i] * differentialRatio;
         }
     }
@@ -37,12 +37,12 @@ public class GearRatioCalc {
      */
     public void RPMcalc(int rpms) {
         double[] mph = new double[finalDriveRatio.length];
-        for (int i=0; i<mph.length; i++) {
-            mph[i] = (rpms*60) / (finalDriveRatio[i] * tireSize.revsPerMile());
+        for (int i = 0; i < mph.length; i++) {
+            mph[i] = rpms * 60 / (finalDriveRatio[i] * tireSize.revsPerMile());
         }
         System.out.println("Speeds at " + rpms + " rpm:");
-        for (int i=0; i<mph.length; i++) {
-            System.out.println("Gear " + (i+1) + ": " + mph[i] + " mph");
+        for (int i = 0; i < mph.length; i++) {
+            System.out.println("Gear " + (i + 1) + ": " + mph[i] + " mph");
         }
     }
 
@@ -52,13 +52,13 @@ public class GearRatioCalc {
      * @param mph An int containing the speed in MPH to calculate for
      */
     public void MPHcalc(int mph) {
-        double rpm[] = new double [finalDriveRatio.length];
-        for (int i=0; i<rpm.length; i++) {
+        double[] rpm = new double [finalDriveRatio.length];
+        for (int i = 0; i < rpm.length; i++) {
             rpm[i] = (mph * finalDriveRatio[i] * tireSize.revsPerMile()) / 60.0;
         }
         System.out.println("RPMs at " + mph + " mph:");
-        for (int i=0; i<rpm.length; i++) {
-            System.out.println("Gear " + (i+1) + ": " + rpm[i] + " rpm");
+        for (int i = 0; i < rpm.length; i++) {
+            System.out.println("Gear " + (i + 1) + ": " + rpm[i] + " rpm");
         }
     }
 
