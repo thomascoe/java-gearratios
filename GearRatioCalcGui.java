@@ -1,14 +1,15 @@
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 import javax.swing.JPanel;
 /**
  * GearRatioCalcGui creates a GUI for a GearRatioCalc
@@ -20,8 +21,11 @@ import javax.swing.JPanel;
 public class GearRatioCalcGui extends JFrame {
 
     private Tire tireSize;
+    private double[] ratios = {3.136, 1.888, 1.330, 1.0, 0.814};
+    private double dRatio = 4.3;
     private JLabel tireLabel;
     private JLabel finalDriveLabel;
+    private JLabel ratioLabel;
     private GearRatioCalc gearCalculator;
 
     /**
@@ -31,17 +35,26 @@ public class GearRatioCalcGui extends JFrame {
         super("Gear Ratio Calculator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setJMenuBar(createJMenuBar());
-        tireLabel = new JLabel("");
-        finalDriveLabel = new JLabel("Final Drive: 4.3");
-        updateTireSize();
         setLayout(new GridLayout(1, 2));
+
+        tireLabel = new JLabel("Tire Size: null");
+        finalDriveLabel = new JLabel("Final Drive: " + dRatio);
+        ratioLabel = new JLabel("Gear Ratios: " + ratios);
+
+        updateTireSize();
+        gearCalculator = new GearRatioCalc(ratios, dRatio, tireSize);
+
         add(createButtonPanel());
+
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.add(tireLabel);
         textPanel.add(finalDriveLabel);
+        textPanel.add(ratioLabel);
         add(textPanel);
+
         pack();
+        speedsAtRpm();
     }
 
     /**
@@ -68,9 +81,12 @@ public class GearRatioCalcGui extends JFrame {
     private JPanel createButtonPanel() {
         JButton changeTireSize = new JButton("Change Tire Size");
         changeTireSize.addActionListener(new TireChangeListener());
+        JButton calculateSpeed = new JButton("Calculate speeds at a given RPM");
+        calculateSpeed.addActionListener(new SpeedCalculateListener());
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.add(changeTireSize);
+        buttonPanel.add(calculateSpeed);
         return buttonPanel;
     }
 
@@ -91,6 +107,14 @@ public class GearRatioCalcGui extends JFrame {
         }
     }
 
+    private class SpeedCalculateListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            speedsAtRpm();
+        }
+    }
+
     /**
      * Prompts the user for a Tire size, used to create a new Tire object
      */
@@ -100,6 +124,25 @@ public class GearRatioCalcGui extends JFrame {
         if (size != null) {
             tireSize = new Tire(size);
             tireLabel.setText("Tire Size: " + tireSize);
+        }
+    }
+
+    /**
+     * Prompt user for input to calculate all speeds at a given RPM
+     */
+    private void speedsAtRpm() {
+        String rpmString = JOptionPane.showInputDialog(null,
+                "Please input the RPM to calculate for", "2000 rpm");
+        if (rpmString != null) {
+            Scanner rpmFinder = new Scanner(rpmString);
+            try {
+                int rpm = rpmFinder.nextInt();
+                //debugging for now
+                System.out.println(rpm);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                        "RPM not found", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 
