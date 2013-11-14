@@ -42,7 +42,6 @@ public class GearRatioCalcGui extends JFrame {
         ratioLabel = new JLabel("Gear Ratios: " + ratios);
 
         updateTireSize();
-        gearCalculator = new GearRatioCalc(ratios, dRatio, tireSize);
 
         add(createButtonPanel());
 
@@ -54,7 +53,6 @@ public class GearRatioCalcGui extends JFrame {
         add(textPanel);
 
         pack();
-        speedsAtRpm();
     }
 
     /**
@@ -83,10 +81,13 @@ public class GearRatioCalcGui extends JFrame {
         changeTireSize.addActionListener(new TireChangeListener());
         JButton calculateSpeed = new JButton("Calculate speeds at a given RPM");
         calculateSpeed.addActionListener(new SpeedCalculateListener());
+        JButton calculateRpms = new JButton("Calculate RPMs at a given speed");
+        calculateRpms.addActionListener(new RpmCalculateListener());
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.add(changeTireSize);
         buttonPanel.add(calculateSpeed);
+        buttonPanel.add(calculateRpms);
         return buttonPanel;
     }
 
@@ -115,6 +116,14 @@ public class GearRatioCalcGui extends JFrame {
         }
     }
 
+    private class RpmCalculateListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            rpmsAtSpeed();
+        }
+    }
+
     /**
      * Prompts the user for a Tire size, used to create a new Tire object
      */
@@ -125,6 +134,7 @@ public class GearRatioCalcGui extends JFrame {
             tireSize = new Tire(size);
             tireLabel.setText("Tire Size: " + tireSize);
         }
+        gearCalculator = new GearRatioCalc(ratios, dRatio, tireSize);
     }
 
     /**
@@ -136,12 +146,31 @@ public class GearRatioCalcGui extends JFrame {
         if (rpmString != null) {
             Scanner rpmFinder = new Scanner(rpmString);
             try {
-                int rpm = rpmFinder.nextInt();
+                double rpm = rpmFinder.nextDouble();
                 //debugging for now
-                System.out.println(rpm);
+                gearCalculator.RPMcalc((int)rpm);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
                         "RPM not found", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }
+
+    /**
+     * Prompt the user for input to calculate all RPMs at a given speed
+     */
+    private void rpmsAtSpeed() {
+        String speedString = JOptionPane.showInputDialog(null,
+                "Please input the speed to calculate for", "60 mph");
+        if (speedString != null) {
+            Scanner speedFinder = new Scanner(speedString);
+            try {
+                double mph = speedFinder.nextDouble();
+                //debugging for now
+                gearCalculator.MPHcalc((int)mph);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                        "MPH not found", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
