@@ -40,6 +40,18 @@ public class Tire {
     }
 
     /**
+     * Constructor for a Tire using another Tire object. Primarily used to
+     * create a deep copy of a Tire in order to maintain proper encapsulation
+     *
+     * @param other The Tire this Tire will be based upon
+     */
+    public Tire (Tire other) {
+        this.width = other.width;
+        this.ratio = other.ratio;
+        this.diameter = other.diameter;
+    }
+
+    /**
      * Calculate the total diameter of the tire in inches
      *
      * @return A double containing the diameter of the tire
@@ -74,7 +86,47 @@ public class Tire {
      *
      * @return A String representation of the tire
      */
+    @Override
     public String toString() {
         return width + "/" + ratio + "R" + diameter;
+    }
+
+    /**
+     * Checks for equality with another Tire
+     *
+     * @param other The object to compare this to
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Tire)) {
+            return false;
+        }
+        Tire o = (Tire) other;
+        if (this.width == o.width
+                && this.ratio == o.ratio
+                && this.diameter == o.diameter) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns a hashCode for a Tire
+     *
+     * @return An int hashCode for the Tire
+     */
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += width;
+        hash += ratio * 13;
+        hash += diameter * 17;
+        return hash;
     }
 }
