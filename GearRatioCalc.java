@@ -31,6 +31,16 @@ public class GearRatioCalc {
     }
 
     /**
+     * Returns the speed in MPH at a particular rpm in a particular gear
+     *
+     * @param rpm The current RPM of the car
+     * @param gear The gear the car is in
+     */
+    public double speedAtRpm(double rpm, int gear) {
+        return rpm * 60 / (finalDriveRatio[gear-1] * tireSize.revsPerMile());
+    }
+
+    /**
      * Calculate the speeds in each gear at the RPM given
      *
      * @param rpms An int of the RPM to calculate for
