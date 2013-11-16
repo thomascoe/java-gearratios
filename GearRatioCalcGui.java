@@ -148,7 +148,7 @@ public class GearRatioCalcGui extends JFrame {
             try {
                 double rpm = rpmFinder.nextDouble();
                 //debugging for now
-                gearCalculator.RPMcalc((int)rpm);
+                gearCalculator.RPMcalc((int) rpm);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
                         "RPM not found", "Error", JOptionPane.WARNING_MESSAGE);
@@ -167,7 +167,7 @@ public class GearRatioCalcGui extends JFrame {
             try {
                 double mph = speedFinder.nextDouble();
                 //debugging for now
-                gearCalculator.MPHcalc((int)mph);
+                gearCalculator.MPHcalc((int) mph);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
                         "MPH not found", "Error", JOptionPane.WARNING_MESSAGE);

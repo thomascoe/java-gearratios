@@ -45,7 +45,7 @@ public class Tire {
      *
      * @param other The Tire this Tire will be based upon
      */
-    public Tire (Tire other) {
+    public Tire(Tire other) {
         this.width = other.width;
         this.ratio = other.ratio;
         this.diameter = other.diameter;

@@ -37,7 +37,7 @@ public class GearRatioCalc {
      * @param gear The gear the car is in
      */
     public double speedAtRpm(double rpm, int gear) {
-        return rpm * 60 / (finalDriveRatio[gear-1] * tireSize.revsPerMile());
+        return rpm * 60 / (finalDriveRatio[gear - 1] * tireSize.revsPerMile());
     }
 
     /**
